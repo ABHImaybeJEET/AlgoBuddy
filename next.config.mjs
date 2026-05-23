@@ -1,6 +1,25 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	async redirects() {
+		return [
+			{
+				source: '/visualizer/graph/traversal/bfs',
+				destination: '/visualizer/graph/bfs',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/traversal/dfs',
+				destination: '/visualizer/graph/dfs',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/algorithms/dijkstra',
+				destination: '/visualizer/graph/dijkstra',
+				permanent: true,
+			},
+		];
+	},
 	async headers() {
 		return [
 			{

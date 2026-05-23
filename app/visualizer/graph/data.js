@@ -9,9 +9,9 @@ const baseRelatedLinks = [
     text: "Adjacency List",
     url: "/visualizer/graph/representation/adjacency-list",
   },
-  { key: "bfs", text: "BFS", url: "/visualizer/graph/traversal/bfs" },
-  { key: "dfs", text: "DFS", url: "/visualizer/graph/traversal/dfs" },
-  { key: "dijkstra", text: "Dijkstra", url: "/visualizer/graph/algorithms/dijkstra" },
+  { key: "bfs", text: "BFS", url: "/visualizer/graph/bfs" },
+  { key: "dfs", text: "DFS", url: "/visualizer/graph/dfs" },
+  { key: "dijkstra", text: "Dijkstra", url: "/visualizer/graph/dijkstra" },
   { key: "prim", text: "Prim", url: "/visualizer/graph/algorithms/prim" },
   { key: "kruskal", text: "Kruskal", url: "/visualizer/graph/algorithms/kruskal" },
   {

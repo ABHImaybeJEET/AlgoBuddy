@@ -1,13 +1,7 @@
 "use client";
 
-import GraphAnimation from "@/app/visualizer/graph/components/GraphAnimation";
-import { graphTopics } from "@/app/visualizer/graph/data";
+import GraphVisualizer from "@/app/visualizer/graph/components/GraphVisualizer";
 
 export default function Animation() {
-  return (
-    <GraphAnimation
-      type={graphTopics.kruskal.animationType}
-      title={graphTopics.kruskal.title}
-    />
-  );
+  return <GraphVisualizer algorithm="kruskal" />;
 }

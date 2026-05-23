@@ -1,13 +1,7 @@
 "use client";
 
-import GraphAnimation from "@/app/visualizer/graph/components/GraphAnimation";
-import { graphTopics } from "@/app/visualizer/graph/data";
+import GraphVisualizer from "@/app/visualizer/graph/components/GraphVisualizer";
 
 export default function Animation() {
-  return (
-    <GraphAnimation
-      type={graphTopics.topologicalSort.animationType}
-      title={graphTopics.topologicalSort.title}
-    />
-  );
+  return <GraphVisualizer algorithm="topologicalSort" />;
 }
