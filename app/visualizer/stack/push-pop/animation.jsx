@@ -9,8 +9,10 @@ const StackVisualizer = () => {
   const [message, setMessage] = useState("Stack is empty");
   const [isAnimating, setIsAnimating] = useState(false);
   const stackRefs = useRef([]);
+  const animationQueue = useRef([]);
 
   // Reset stack
+
   const reset = () => {
     setStack([]);
     setMessage("Stack is empty");
@@ -24,11 +26,18 @@ const StackVisualizer = () => {
         gsap.fromTo(
           el,
           { y: -50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
+          { y: 0, opacity: 1, duration: 0.5, ease: "power3.out", onComplete: () => setIsAnimating(false) }
         );
       } else if (operation?.includes("popped")) {
-        gsap.to(el, { y: 50, opacity: 0, duration: 0.3, ease: "power1.in" });
-      } else if (operation?.includes("Peek")) {
+        gsap.to(el, {
+          y: 50,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power1.in",
+          onComplete: () => setIsAnimating(false)
+        });
+      }
+      else if (operation?.includes("Peek")) {
         gsap.fromTo(
           el,
           { scale: 1 },
@@ -36,7 +45,7 @@ const StackVisualizer = () => {
         );
       }
     }
-  }, [stack, operation, isAnimating]);
+  }, [stack, operation]);
 
   return (
     <main className="container mx-auto px-6 pb-8">
@@ -85,11 +94,10 @@ const StackVisualizer = () => {
                     <div
                       key={index}
                       ref={(el) => (stackRefs.current[index] = el)}
-                      className={`p-3 border-2 rounded text-center font-medium transition-all duration-300 ${
-                        index === 0
-                          ? "bg-blue-100 dark:bg-blue-900 border-blue-300 dark:border-blue-700"
-                          : "bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600"
-                      }`}
+                      className={`p-3 border-2 rounded text-center font-medium transition-all duration-300 ${index === 0
+                        ? "bg-blue-100 dark:bg-blue-900 border-blue-300 dark:border-blue-700"
+                        : "bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600"
+                        }`}
                     >
                       <div>{item}</div>
                       {index === 0 && (
