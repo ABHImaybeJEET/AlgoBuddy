@@ -39,18 +39,89 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://challenges.cloudflare.com https://va.vercel-scripts.com",
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://*.googlesyndication.com https://*.google.com https://challenges.cloudflare.com https://va.vercel-scripts.com https://cdn.jsdelivr.net",
+      "worker-src 'self' blob:",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net",
       "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data: https:",
-      "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://challenges.cloudflare.com https://va.vercel-scripts.com",
-      "frame-src https://challenges.cloudflare.com",
+      "img-src 'self' data: https: https://*.googlesyndication.com",
+      "connect-src 'self' https://*.supabase.co https://*.googlesyndication.com https://*.google.com https://*.google-analytics.com https://*.googletagmanager.com https://*.google.com https://*.tagassistant.google.com https://*.cloudflare.com",
+      "frame-src https://challenges.cloudflare.com https://*.googleads.g.doubleclick.net https://*.google.com",
       "frame-ancestors 'none'",
     ].join("; "),
   },
 ];
 
 const nextConfig = {
+  devIndicators: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+        pathname: "/8.x/initials/**",
+      },
+    ],
+  },
+	async redirects() {
+		return [
+			{
+				source: '/visualizer/graph/traversal/bfs',
+				destination: '/visualizer/graph/bfs',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/traversal/dfs',
+				destination: '/visualizer/graph/dfs',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/algorithms/dijkstra',
+				destination: '/visualizer/graph/dijkstra',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/algorithms/prim',
+				destination: '/visualizer/graph/prim',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/algorithms/kruskal',
+				destination: '/visualizer/graph/kruskal',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/algorithms/topological-sort',
+				destination: '/visualizer/graph/topological-sort',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/representation/adjacency-list',
+				destination: '/visualizer/graph/adjacency-list',
+				permanent: true,
+			},
+			{
+				source: '/visualizer/graph/representation/adjacency-matrix',
+				destination: '/visualizer/graph/adjacency-matrix',
+				permanent: true,
+			},
+		];
+	},
+	async headers() {
+		return [
+			{
+				source: '/(.*)',
+				headers: [
+					{ key: 'X-Frame-Options', value: 'DENY' },
+					{ key: 'X-Content-Type-Options', value: 'nosniff' },
+					{ key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+					{
+						key: 'Permissions-Policy',
+						value: 'camera=(), microphone=(), geolocation=()',
+					},
+				],
+			},
+		];
+	},
   async headers() {
     return [
       {

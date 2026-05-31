@@ -53,6 +53,7 @@ function resolveSessionSecret(channelName) {
   return sanitizeSessionText(parts.slice(2).join(":"), 240);
 }
 
+
 export function useCollaboration({
   displayName = "Anonymous",
   onRemoteStateDelta,
