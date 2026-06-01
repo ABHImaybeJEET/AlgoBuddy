@@ -466,22 +466,23 @@ export default function VisualizerClient({ initialSections }) {
   useEffect(() => {
     localStorage.setItem("visualizer_session", JSON.stringify(session));
   }, [session]);
+  const { lastPath, restored } = session;
   // Prompt to restore previous session on mount
   useEffect(() => {
-    if (session.lastPath && !session.restored) {
+    if (lastPath && !restored) {
       const ok = window.confirm("A previous visualizer session was found. Do you want to restore it?");
       if (ok) {
         // restore logic can be expanded per visualizer
         setSession(prev => ({ ...prev, restored: true }));
         // For example, navigate to lastPath (if using Next router)
-        // router.push(session.lastPath);
+        // router.push(lastPath);
       } else {
         // clear saved session
         localStorage.removeItem("visualizer_session");
         setSession({});
       }
     }
-  }, []);
+  }, [lastPath, restored]);
 
 // Keyboard shortcut Ctrl+K or /
 useEffect(() => {
